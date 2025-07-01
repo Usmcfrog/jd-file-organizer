@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.venv/
+env/
+venv/
+
+# Model files
+*.gguf
+*.bin
+
+# Logs and OS junk
+*.log
+.DS_Store
+Thumbs.db
+
+# VSCode & PyCharm
+.vscode/
+.idea/
+
+# Cache
+*.cache
+*.tmp
+
+# Windows paths
+*.bak
+*.swp
