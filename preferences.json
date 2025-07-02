@@ -1,1 +1,4 @@
-{"destination_folder": "F:/Organized Cabinet"}
+{
+    "destination_folder": "F:/Organized Cabinet",
+    "llm_model_path": "models/mistral-7b-instruct-v0.2.Q5_K_M.gguf"
+}

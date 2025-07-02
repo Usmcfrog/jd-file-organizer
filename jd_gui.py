@@ -1,8 +1,9 @@
-# jd_gui.py
-
 import tkinter as tk
-from tkinter import filedialog, ttk, scrolledtext
+from tkinter import filedialog, ttk, scrolledtext, messagebox
 import threading
+import queue
+
+result_queue = queue.Queue()
 
 def select_files_to_analyze():
     root = tk.Tk()
@@ -28,8 +29,7 @@ def show_progress_window(files, process_function):
             log_text.see(tk.END)
 
         def finish_progress():
-            status_label["text"] = "🎉 All files processed."
-            cancel_button.config(state=tk.DISABLED)
+            result_queue.put("done")
 
         process_function(
             files,
@@ -56,4 +56,19 @@ def show_progress_window(files, process_function):
     cancel_button.pack(pady=5)
 
     threading.Thread(target=run_processing, daemon=True).start()
+
+    # Poll for "done" signal from background thread
+    def poll_queue():
+        try:
+            msg = result_queue.get_nowait()
+        except queue.Empty:
+            window.after(100, poll_queue)
+            return
+
+        if msg == "done":
+            messagebox.showinfo("Done", "All files processed.")
+            window.quit()
+            window.destroy()
+
+    window.after(100, poll_queue)
     window.mainloop()
