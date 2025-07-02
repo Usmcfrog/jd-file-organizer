@@ -19,8 +19,8 @@ venv/
 Thumbs.db
 
 # VSCode & PyCharm
-.vscode/
-.idea/
+# .vscode/
+# .idea/
 
 # Cache
 *.cache
